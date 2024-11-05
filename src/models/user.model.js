@@ -26,14 +26,14 @@ const userSchema = new Schema(
         lowercase: true
     },
     avatar: {
-        type: true,
+        type: String,
         required: true
     },
     coverImage: {
-        type: true,
+        type: String,
     },
     password: {
-        type: true,
+        type: String,
         required: [true, 'Password is required']
     },
     watchHistory: [

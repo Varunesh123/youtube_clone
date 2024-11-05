@@ -140,7 +140,7 @@ const logoutUser = asycHandler(async(req, res) => {
         .json(new ApiResponse(200, {}, "User logged out"))
 })
 
-const refreshAcceessToken = asycHandler(async(req, res) => {
+const refreshAccessToken = asycHandler(async(req, res) => {
     const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
 
     if(!incomingRefreshToken)
@@ -168,7 +168,7 @@ const refreshAcceessToken = asycHandler(async(req, res) => {
         return res
             .status(200)
             .cookie("accessToken", accessToken, options)
-            .cookie("refreshToken", refreshToken, options)
+            .cookie("refreshToken", newRefreshToken, options)
             .json(
                 new ApiResponse(
                     200,
@@ -187,6 +187,6 @@ const refreshAcceessToken = asycHandler(async(req, res) => {
 export {
     registerUser,
     loginUser,
-    refreshAcceessToken,
+    refreshAccessToken,
     logoutUser
 }
