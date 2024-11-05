@@ -3,6 +3,8 @@ import { asycHandler }from '../utils/asyncHandler.js'
 import{ ApiError } from '../utils/ApiError.js'
 import {ApiResponse} from '../utils/ApiResponse.js'
 import {uploadOnCloudinary} from '../utils/cloudinary.js'
+import jwt from 'jsonwebtoken'
+import mongoose from 'mongoose'
 
 const generateAccessAndRefreshToken = async(userId) => {
     try {
@@ -135,8 +137,8 @@ const logoutUser = asycHandler(async(req, res) => {
 
     return res
         .status(200)
-        .cookie("accessToken", accessToken, options)
-        .cookie("refreshToken", refreshToken, options)
+        .clearCookie("accessToken", options)
+        .clearCookie("refreshToken", options)
         .json(new ApiResponse(200, {}, "User logged out"))
 })
 
@@ -183,10 +185,15 @@ const refreshAccessToken = asycHandler(async(req, res) => {
         throw new ApiError(401, error?.message || "Invalid refresh token")
     }
 })
+// TODO
+const changeCurrentPassword = asycHandler(async(req, res) => {
+
+})
 
 export {
     registerUser,
     loginUser,
     refreshAccessToken,
-    logoutUser
+    logoutUser,
+    changeCurrentPassword
 }
